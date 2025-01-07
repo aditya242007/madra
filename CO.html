@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO Emissions Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .card {
+            width: 50%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        #chartContainer {
+            width: 100%;
+            margin-top: 20px;
+        }
+        input {
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>CO Emissions Based on Distance</h2>
+        
+        <label for="distance">Enter Distance (km):</label>
+        <input type="number" id="distance" name="distance" min="0" step="1" value="100">
+        
+        <div id="chartContainer">
+            <canvas id="coChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Get reference to the canvas for CO chart
+        const ctx = document.getElementById('coChart').getContext('2d');
+
+        // Chart.js setup for CO emissions
+        const coChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Distance'], // Label for x-axis
+                datasets: [{
+                    label: 'CO Emissions (ppm)',
+                    data: [0], // Initial data, will update dynamically
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)', // CO color (red)
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 200 // Setting maximum CO value to 200 ppm
+                    }
+                },
+                responsive: true
+            }
+        });
+
+        // CO emission calculation (8 ppm per 100 km)
+        function calculateCOEmissions(distance) {
+            const coPer100Km = 8; // ppm of CO emitted per 100 km
+            return (distance / 100) * coPer100Km;
+        }
+
+        // Function to update the chart
+        function updateChart() {
+            const distance = document.getElementById('distance').value;
+            const coEmissions = calculateCOEmissions(distance);
+
+            // Update the chart data
+            coChart.data.datasets[0].data = [coEmissions];
+            coChart.update();
+        }
+
+        // Event listener for distance input change
+        document.getElementById('distance').addEventListener('input', updateChart);
+
+        // Initial chart update
+        updateChart();
+    </script>
+
+</body>
+</html>

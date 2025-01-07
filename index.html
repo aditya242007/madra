@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Route Optimization and Emission Reduction System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <link rel="stylesheet" href="index.css">
+    
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="logo" style="width: 100px;" height="100px">
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#technology">Technology</a>
+            <a href="#benefits">Benefits</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div>
+            <h2>Revolutionizing Urban Mobility</h2>
+            <p>Optimize travel routes, reduce emissions, and build sustainable cities with our cutting-edge dynamic route optimization system.</p>
+        </div>
+    </div>
+    
+    <div class="count">
+        <h1 class="counter">80,000</h1><h1 class="font-effect-fire">Total Bikes</h1>
+        <h1 class="counter">40,000</h1><h1 class="font-effect-fire">Total Cars</h1>
+        <h1 class="counter">2,60,000</h1><h1 class="font-effect-fire">Total Heavyload Vechile</h1>
+    </div>
+    <br><br><br>
+        <h1 style="text-align: center;"> # Location </h1>
+    <br>
+    <!-- map -->
+    <div class="form-container">
+        <label for="fromLocation">From:</label>
+        <input type="text" id="fromLocation" placeholder="Enter starting point">
+        <label for="toLocation">To:</label>
+        <input type="text" id="toLocation" placeholder="Enter destination">
+        <label for="routeType">Route Type:</label>
+        <select id="routeType">
+            <option value="fastest">Fastest</option>
+            <option value="shortest">Shortest</option>
+            <option value="ecoFriendly">Eco-Friendly</option>
+        </select>
+        <button onclick="updateMap()">Get Route</button>
+    </div>
+
+    <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093743!2d144.9537353158445!3d-37.8172097420217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577fc544f39dbae!2sFederation%20Square!5e0!3m2!1sen!2sau!4v1633245465214!5m2!1sen!2sau" allowfullscreen="" loading="lazy"></iframe>
+
+    <script>
+        function updateMap() {
+            const fromLocation = document.getElementById('fromLocation').value;
+            const toLocation = document.getElementById('toLocation').value;
+            const routeType = document.getElementById('routeType').value;
+            const map = document.getElementById('map');
+
+            if (fromLocation && toLocation) {
+                const baseURL = "https://www.google.com/maps/embed/v1/directions?key=YOUR_API_KEY";
+                const travelMode = routeType === 'ecoFriendly' ? 'bicycling' : 'driving';
+                map.src = `${baseURL}&origin=${encodeURIComponent(fromLocation)}&destination=${encodeURIComponent(toLocation)}&mode=${travelMode}`;
+            } else {
+                alert('Please enter both starting point and destination.');
+            }
+        }
+    </script>
+
+    <section id="features">
+        <h2>Pollution measures</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>CO2 (carbon dioxide)</h3>
+                <p>CO₂ contributes to global warming by trapping heat in the atmosphere, leading to rising temperatures and disrupted climate patterns. </p>
+                <a href="co2.html" style="color: #aaa;"> Track your CO2 emissions </a><br>
+                <img src="co2.png" alt="" style="width: 400px;height: 400px;">
+            </div>
+            <div class="card">
+                <h3>CO (carbon monoxide)</h3>
+                <p>Carbon monoxide (CO) is a toxic gas that contributes to air pollution by reducing the oxygen-carrying capacity of blood in living organisms, harming wildlife and humans.</p>
+                <a href="CO.html" style="color: #aaa;"> Track your CO emissions </a><br>
+                <img src="CO.png" alt="" style="width: 400px;height: 400px;">
+            </div>
+            <div class="card">
+                <h3>SO2 (Sulphur dioxide)</h3>
+                <p>Sulfur dioxide (SO₂) harms the environment by contributing to acid rain, which damages soil, water bodies, and vegetation, disrupting ecosystems. </p>
+                <a href="so2.html" style="color: #aaa;"> Track your SO2 emissions </a><br>
+                <img src="SO2.png" alt="" style="width: 400px;height: 400px;">
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <h2>Key Features</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Dynamic Route Planning</h3>
+                <p>Real-time updates to find the most efficient routes using traffic, weather, and road conditions.</p>
+            </div>
+            <div class="card">
+                <h3>Emission Reduction</h3>
+                <p>Choose eco-friendly routes that lower fuel consumption and carbon footprints.</p>
+            </div>
+            <div class="card">
+                <h3>User-Centric Design</h3>
+                <p>Options to prioritize speed, cost, or sustainability, with seamless EV integration.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology">
+        <h2>Technology Stack</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Real-Time Data</h3>
+                <p>APIs for traffic, weather, and route data to ensure up-to-date information.</p>
+            </div>
+            <div class="card">
+                <h3>AI & ML</h3>
+                <p>Predict traffic patterns, optimize routes, and detect anomalies for seamless travel.</p>
+            </div>
+            <div class="card">
+                <h3>Scalable Backend</h3>
+                <p>Built with robust frameworks like Node.js or Flask to handle millions of requests efficiently.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits">
+        <h2>Benefits</h2>
+        <p>Our system delivers unparalleled advantages for users, businesses, and the environment:</p>
+        <div class="grid">
+            <div class="card">
+                <h3>For Users</h3>
+                <p>Save time, reduce fuel costs, and enjoy eco-friendly travel options.</p>
+            </div>
+            <div class="card">
+                <h3>For Businesses</h3>
+                <p>Improve delivery efficiency, cut operational costs, and track emissions.</p>
+            </div>
+            <div class="card">
+                <h3>For the Environment</h3>
+                <p>Contribute to global sustainability by reducing urban carbon emissions.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Dynamic Route Optimization System | Designed for a smarter, greener future</p>
+    </footer>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js" integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" integrity="sha512-d8F1J2kyiRowBB/8/pAWsqUl0wSEOkG5KATkVV4slfblq9VRQ6MyDZVxWl2tWd+mPhuCbpTB4M7uU/x9FlgQ9Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $('.counter').counterUp({
+    delay: 10,
+    time: 1500
+});
+</script>
+
+</body>
+</html>

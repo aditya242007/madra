@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SO₂ Emissions Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .card {
+            width: 50%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        #chartContainer {
+            width: 100%;
+            margin-top: 20px;
+        }
+        input {
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>SO₂ Emissions Based on Distance</h2>
+        
+        <label for="distance">Enter Distance (km):</label>
+        <input type="number" id="distance" name="distance" min="0" step="1" value="100">
+        
+        <div id="chartContainer">
+            <canvas id="so2Chart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Get reference to the canvas
+        const ctx = document.getElementById('so2Chart').getContext('2d');
+
+        // Chart.js setup for SO₂ emissions
+        const so2Chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Distance'], // Label for x-axis
+                datasets: [{
+                    label: 'SO₂ Emissions (ppm)',
+                    data: [0], // Initial data, will update dynamically
+                    backgroundColor: 'purple', // Red color for SO₂
+                    borderColor: 'purple',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 200 // Setting maximum SO2 value to 200 ppm
+                    }
+                },
+                responsive: true
+            }
+        });
+
+        // SO₂ emission calculation (5 ppm per 100 km, adjust as necessary)
+        function calculateSO2Emissions(distance) {
+            const so2Per100Km = 5; // ppm of SO₂ emitted per 100 km (can be adjusted)
+            return (distance / 100) * so2Per100Km;
+        }
+
+        // Function to update the chart
+        function updateChart() {
+            const distance = document.getElementById('distance').value;
+            const so2Emissions = calculateSO2Emissions(distance);
+
+            // Update the chart data
+            so2Chart.data.datasets[0].data = [so2Emissions];
+            so2Chart.update();
+        }
+
+        // Event listener for distance input change
+        document.getElementById('distance').addEventListener('input', updateChart);
+
+        // Initial chart update
+        updateChart();
+    </script>
+
+</body>
+</html>
